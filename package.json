@@ -1,0 +1,30 @@
+{
+  "name": "generator-mydnn",
+  "version": "1.0.0",
+  "description": "DNN scaffolding generator",
+  "main": "generators/index.js",
+
+  "files": [
+    "generators"
+  ],
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gncube/generator-mydnn.git"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "dnn",
+    "dnn-cli",
+    "gsn"
+  ],
+  "author": "Gerald Ncube of GSN",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gncube/generator-mydnn/issues"
+  },
+  "homepage": "https://github.com/gncube/generator-mydnn#readme"
+}
