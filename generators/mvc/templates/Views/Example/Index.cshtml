@@ -1,0 +1,51 @@
+@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage <IEnumerable<<%= fullNamespace %>.Models.<%= extensionName %>Info>>
+
+@using System.Text.RegularExpressions
+@using DotNetNuke.Web.Mvc.Helpers
+
+<div id="Items-@Dnn.ModuleContext.ModuleId">
+  @if (Model == null || !Model.Any())
+	{
+  <p>@Dnn.LocalizeString("NoItems")</p>
+    }
+    else
+	{
+  <ul class="tm_tl">
+    @foreach (var item in Model)
+			{
+    <li class="tm_t">
+      <h3>@item.Title</h3>
+      <div class="tm_td">@item.Description
+        @item.CreatedByUser().DisplayName
+      </div>
+      @{
+                        if (Dnn.ModuleContext.IsEditable)
+						{
+        <div>
+          <a href="@Url.Action("Edit", "Example", new {ctl = "Edit", itemId = item.<%= extensionName %>Id})" class="btn btn-primary btn-edit">@Dnn.LocalizeString("EditItem")</a>
+          <a href="@Url.Action("Delete", "Example", new {itemId = item.<%= extensionName %>Id})" class="btn btn-danger btn-delete">@Dnn.LocalizeString("DeleteItem")</a>
+        </div>
+                        }
+      }
+    </li>
+
+            }
+  </ul>
+    }
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $(".btn-delete").each(function () {
+            $(this).dnnConfirm({
+                text: '@Dnn.LocalizeString("DeleteItem.Confirm")',
+                yesText: 'Delete',
+                noText: 'Cancel',
+                title: 'Confirm Deletion',
+                isButton: false
+            });
+        });
+    });
+</script>
