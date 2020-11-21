@@ -1,11 +1,47 @@
 {
   "name": "generator-mydnn",
-  "version": "1.0.0",
-  "description": "DNN scaffolding generator",
-  "main": "generators/index.js",
+  "version": "2.0.0",
+  "description": "Scaffolds DNN extensions, including Modules (Webforms, SPA, and MVC), Persona Bar, Skin Object, Library, Scheduler, and Hotcakes Commerce projects (based on the generator built by Matt Rutledge).",
+  "homepage": "https://github.com/gncube",
+  "author": "Gerald Ncube <me@geraldncube.co.uk> (https://geraldncube.co.uk)",
   "files": [
     "generators"
   ],
+  "main": "generators/index.js",
+  "keywords": [
+    "yeoman-generator",
+    "dnn",
+    "dotnetnuke",
+    "dnncms",
+    "evoq",
+    "gsn"
+  ],
+  "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-xo": "^0.25.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "jest": "^23.6.0",
+    "jest-cli": "^23.6.0",
+    "nsp": "^3.2.1",
+    "prettier": "^1.15.3",
+    "yeoman-assert": "^3.1.1",
+    "yeoman-test": "^1.9.1",
+    "yo": "^2.0.5"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "dotnet-solution": "^0.2.0",
+    "pascal-case": "^2.0.1",
+    "update-notifier": "^2.5.0",
+    "uuid-v4": "^0.1.0",
+    "which": "^1.3.1",
+    "yeoman-generator": "^3.2.0",
+    "yosay": "^2.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "scripts": {
     "test": "jest",
     "preversion": "npm test",
@@ -36,47 +72,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gncube/generator-mydnn.git"
+    "url": "git+https://github.com/gncube/generator-gsndnn.git"
   },
-  "keywords": [
-    "yeoman-generator",
-    "dnn",
-    "dnn-cli",
-    "gsn"
-  ],
-  "author": "Gerald Ncube of GSN",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gncube/generator-mydnn/issues"
-  },
-  "homepage": "https://github.com/gncube/generator-mydnn#readme",
-  "dependencies": {
-    "chalk": "^4.1.0",
-    "dotnet-solution": "^0.2.0",
-    "pascal-case": "^3.1.1",
-    "update-notifier": "^5.0.1",
-    "uuid-v4": "^0.1.0",
-    "which": "^2.0.2",
-    "yeoman-generator": "^4.12.0",
-    "yosay": "^2.0.2"
-  },
-  "devDependencies": {
-    "eslint": "^7.14.0",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-config-xo": "^0.33.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "jest": "^26.6.3",
-    "jest-cli": "^26.6.3",
-    "nsp": "^3.2.1",
-    "prettier": "^2.2.0",
-    "yeoman-assert": "^3.1.1",
-    "yeoman-test": "^3.0.0",
-    "yo": "^3.1.1"
-  },
-  "jest": {
-    "testEnvironment": "node"
-  },
-  "packageConfig": {
-    "registry": "http://registry.npmjs.org/"
+    "url": "https://github.com/gncube/generator-gsndnn/issues"
   }
 }
