@@ -72,5 +72,8 @@
     "yeoman-assert": "^3.1.1",
     "yeoman-test": "^3.0.0",
     "yo": "^3.1.1"
+  },
+  "packageConfig": {
+    "registry": "http://registry.npmjs.org/"
   }
 }
