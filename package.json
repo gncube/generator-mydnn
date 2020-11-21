@@ -11,6 +11,29 @@
     "preversion": "npm test",
     "postversion": "git push && git push --tags"
   },
+  "eslintConfig": {
+    "extends": [
+      "xo",
+      "prettier"
+    ],
+    "env": {
+      "jest": true,
+      "node": true
+    },
+    "rules": {
+      "linebreak-style": 0,
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "printWidth": 90
+        }
+      ]
+    },
+    "plugins": [
+      "prettier"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gncube/generator-mydnn.git"
@@ -22,7 +45,7 @@
     "gsn"
   ],
   "author": "Gerald Ncube of GSN",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/gncube/generator-mydnn/issues"
   },
