@@ -166,11 +166,11 @@ module.exports = class extends DnnGeneratorBase {
       template
     );
 
-    this.fs.copyTpl(
-      this.templatePath('Scripts/**'),
-      this.destinationPath(extensionName + '/Scripts/'),
-      template
-    );
+    //this.fs.copyTpl(
+    //  this.templatePath('Scripts/**'),
+    //  this.destinationPath(extensionName + '/Scripts/'),
+    //  template
+    //);
 
     this.fs.copyTpl(
       this.templatePath('Services/**'),
@@ -178,11 +178,11 @@ module.exports = class extends DnnGeneratorBase {
       template
     );
 
-    this.fs.copyTpl(
-      this.templatePath('Styles/**'),
-      this.destinationPath(extensionName + '/Styles/'),
-      template
-    );
+    //this.fs.copyTpl(
+    //  this.templatePath('Styles/**'),
+    //  this.destinationPath(extensionName + '/Styles/'),
+    //  template
+    //);
 
     this.fs.copyTpl(
       this.templatePath('Templates/**'),
