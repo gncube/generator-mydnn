@@ -66,7 +66,7 @@ module.exports = class extends Generator {
         message: 'What type of project would you like to scaffold?',
         choices: [
           solutionChoice,
-          { name: 'Module: Webforms', value: 'webforms' },
+          { name: 'Module: G SPA', value: 'g-spa' },
           { name: 'Module: MVC', value: 'mvc' },
           { name: 'Module: MVC+SPA', value: 'mvc-spa' },
           /*{ name: 'Module: MVC, .NET Core', value: 'mvc-core' },*/
