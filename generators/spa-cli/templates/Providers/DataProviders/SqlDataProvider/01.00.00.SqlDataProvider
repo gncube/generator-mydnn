@@ -1,0 +1,95 @@
+/*
+
+INSTALL SQL PROVIDER SCRIPT
+
+<%= extensionName %> Extension for DNN
+
+Release Notes:
+ - This script does this
+ - And this
+ - and this
+
+*/
+
+IF NOT OBJECT_ID('{databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s]') IS NULL
+    DROP TABLE {databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s];
+GO
+
+CREATE TABLE {databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s] (
+    [<%= extensionName %>Id] INT IDENTITY(1,1)
+        CONSTRAINT [PK_{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s] PRIMARY KEY CLUSTERED,
+    [PortalId] INT NOT NULL,
+    [ModuleId] INT NOT NULL
+        CONSTRAINT [FK_{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s_ModuleId] FOREIGN KEY
+        REFERENCES {databaseOwner}[{objectQualifier}Modules] ([ModuleId]) ON DELETE CASCADE,
+    [Title] NVARCHAR(100) NOT NULL,
+    [Description] NVARCHAR(1000) NOT NULL,
+    [ContentItemId] INT NULL,
+    [CreatedOnDate] DATETIME NOT NULL,
+    [IsDeleted] BIT NULL,
+    [CreatedByUserId] INT NOT NULL,
+    [LastUpdatedOnDate] DATETIME NOT NULL,
+    [LastUpdatedByUserId] INT NOT NULL
+);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s_ModuleId] ON {databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s] ([ModuleId]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s_<%= extensionName %>Id_ModuleId] ON {databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s] ([<%= extensionName %>Id],[ModuleId]);
+GO
+
+CREATE NONCLUSTERED INDEX [IX_{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s_CreatedByUser] ON {databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s] ([CreatedByUserId]);
+GO
+
+
+/* ADD SUBSCRIBERS */
+
+IF NOT OBJECT_ID('{databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>Subscribers]') IS NULL
+    DROP TABLE {databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>Subscribers];
+GO
+
+
+CREATE TABLE {databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>Subscribers] (
+    [<%= extensionName %>SubscriberId] INT IDENTITY(1,1)
+        CONSTRAINT [PK_{objectQualifier}<%= objectPrefix %>_<%= extensionName %>Subscribers] PRIMARY KEY CLUSTERED,
+    [ModuleId] INT NOT NULL
+        CONSTRAINT [FK_{objectQualifier}<%= objectPrefix %>_<%= extensionName %>Subscribers_ModuleId] FOREIGN KEY
+        REFERENCES {databaseOwner}[{objectQualifier}Modules] ([ModuleId]) ON DELETE CASCADE,
+    [UserId] INT NOT NULL
+        CONSTRAINT [FK_{objectQualifier}<%= objectPrefix %>_<%= extensionName %>Subscribers_UserId] FOREIGN KEY
+        REFERENCES {databaseOwner}[{objectQualifier}Users] ([UserId]) ON DELETE CASCADE,
+    [CreatedOnDate] DATETIME NOT NULL,
+    [CreatedByUserId] INT NOT NULL,
+    [LastUpdatedOnDate] DATETIME NULL,
+    [LastUpdatedByUserId] INT NULL
+);
+
+/* ADD JOURNAL TYPES */
+
+DECLARE @NewJournalTypeId INT
+SELECT  @NewJournalTypeId = MAX(JournalTypeId)
+FROM   {databaseOwner}{objectQualifier}Journal_Types
+
+
+IF NOT EXISTS (SELECT * FROM {databaseOwner}{objectQualifier}Journal_Types WHERE JournalType = '<%= extensionName %>Add')
+	INSERT  INTO {databaseOwner}[{objectQualifier}Journal_Types]
+        ( [JournalTypeId], [JournalType], [icon], [PortalId], [IsEnabled], [AppliesToProfile], [AppliesToGroup], [AppliesToStream], [Options], [SupportsNotify], [EnableComments])
+	VALUES  ( @NewJournalTypeId + 1, '<%= extensionName %>Add', '', -1, 1,  1, 1, 1, NULL, 1, 1)
+
+IF NOT EXISTS (SELECT * FROM {databaseOwner}{objectQualifier}Journal_Types WHERE JournalType = '<%= extensionName %>Update')
+	INSERT  INTO {databaseOwner}[{objectQualifier}Journal_Types]
+        ( [JournalTypeId], [JournalType], [icon], [PortalId], [IsEnabled], [AppliesToProfile], [AppliesToGroup], [AppliesToStream], [Options], [SupportsNotify], [EnableComments])
+	VALUES  ( @NewJournalTypeId + 2, '<%= extensionName %>Update', '', -1, 1,  1, 1, 1, NULL, 1, 1)
+
+IF NOT EXISTS (SELECT * FROM {databaseOwner}{objectQualifier}CoreMessaging_NotificationTypes WHERE Name = 'GSN<%= extensionName %>s')
+	INSERT INTO {databaseOwner}[{objectQualifier}CoreMessaging_NotificationTypes]
+           ([Name],[Description],[TTL],[DesktopModuleID],[CreatedByUserID],[CreatedOnDate],[LastModifiedByUserID],[LastModifiedOnDate])
+	VALUES  ( 'GSN<%= extensionName %>s', '<%= extensionName %> Notification', NULL, NULL, -1, GETDATE(), -1, GETDATE() )
+
+
+/*
+
+END OF FILE
+
+*/

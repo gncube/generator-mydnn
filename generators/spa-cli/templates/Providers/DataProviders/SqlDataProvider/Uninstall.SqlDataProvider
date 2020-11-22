@@ -1,0 +1,22 @@
+/*
+
+UNINSTALL SQL PROVIDER SCRIPT
+
+<%= extensionName %> Extension for DNN
+
+*/
+
+IF NOT OBJECT_ID('{databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s]') IS NULL
+    DROP TABLE {databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>s];
+GO
+
+
+IF NOT OBJECT_ID('{databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>Subscribers]') IS NULL
+    DROP TABLE {databaseOwner}[{objectQualifier}<%= objectPrefix %>_<%= extensionName %>Subscribers];
+GO
+
+/*
+
+END OF FILE
+
+*/
