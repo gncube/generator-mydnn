@@ -4,23 +4,27 @@
 @using DotNetNuke.Web.Mvc.Helpers
 
 <div id="Item-@Dnn.ModuleContext.ModuleId">
-    <div class="dnnForm dnnEditBasicSettings" id="dnnEditBasicSettings">
+    <div class="form dnnEditBasicSettings" id="dnnEditBasicSettings">
         <div class="dnnFormExpandContent dnnRight "><a href="#">@Dnn.LocalizeString("ExpandAll")</a></div>
 
         <h2 id="dnnSitePanel-BasicSettings" class="dnnFormSectionHead dnnClear">
             <a href="#" class="dnnSectionExpanded">@Dnn.LocalizeString("BasicSettings")</a>
         </h2>
         <fieldset>
-            <div class="dnnFormItem">
-                <div><label for="itemName">@Dnn.LocalizeString("lblName")</label></div>
-                @Html.TextBoxFor(m => m.Title)
-            </div>
-            <div class="dnnFormItem">
-                <div><label for="description">@Dnn.LocalizeString("lblDescription")</label></div>
-                @Html.TextArea("description", Model.Description)
-            </div>
-            @Html.HiddenFor(m => m.<%= extensionName %>Id)
-            @Html.HiddenFor(m => m.ModuleId)
+
+          <div class="form-group @(Html.ViewData.ModelState.IsValidField("Title") ? null : "has-error" )">
+            @Html.LabelFor(m => m.Title, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Title, String.Empty, new { @class = "text-danger field-validation-error" })
+          </div>
+
+          <div class="form-group">
+            @Html.LabelFor(m => m.Description, new { @class = "form-label" })
+            @Html.TextAreaFor(m => m.Description, 5, 20, new { @class = "form-control" })
+          </div>
+
+          @Html.HiddenFor(m => m.<%= extensionName %>Id)
+          @Html.HiddenFor(m => m.ModuleId)
         </fieldset>
     </div>
     <button type="submit" class="dnnPrimaryAction">@Dnn.LocalizeString("Submit")</button>

@@ -44,7 +44,7 @@
             <supportedFeatures />
             <moduleDefinitions>
               <moduleDefinition>
-                <friendlyName><%= extensionName %></friendlyName>
+                <friendlyName><%= namespace %>: <%= extensionName %> Module</friendlyName>
                 <defaultCacheTime>0</defaultCacheTime>
                 <moduleControls>
                   <moduleControl>

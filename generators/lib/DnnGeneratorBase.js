@@ -2,6 +2,7 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const uuid = require('uuid-v4');
+const camelCase = require('camelcase');
 const pascalCase = require('pascal-case');
 const which = require('which');
 const fs = require('fs');
@@ -25,6 +26,10 @@ module.exports = class DnnGeneratorBase extends Generator {
 
   _pascalCaseName(val) {
     return pascalCase(val);
+  }
+
+  _camelCaseName(val) {
+    return camelCase(val);
   }
 
   _createSolutionFromTemplate() {

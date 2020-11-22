@@ -1,9 +1,11 @@
 
+
 using DotNetNuke.Common.Utilities;
 using DotNetNuke.ComponentModel.DataAnnotations;
 using DotNetNuke.Entities.Portals;
 using DotNetNuke.Entities.Users;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Caching;
 
 namespace <%= fullNamespace %>.Models
@@ -26,6 +28,7 @@ namespace <%= fullNamespace %>.Models
 
         public int ModuleId { get; set; }
 
+        [Required]
         public string Title { get; set; }
 
         public string Description { get; set; }
