@@ -46,7 +46,7 @@ module.exports = class extends DnnGeneratorBase {
         when: !this.options.description,
         type: 'input',
         name: 'description',
-        message: 'Describe your webforms module:',
+        message: 'Describe your SPA module:',
         validate: str => {
           return str.length > 0;
         }
@@ -227,7 +227,7 @@ module.exports = class extends DnnGeneratorBase {
   }
 
   end() {
-    this.log(chalk.white('Installed Webforms Module npm Dependencies.'));
+    this.log(chalk.white('Installed SPA Module npm Dependencies.'));
     this.log(chalk.white('Running dotnet restore.'));
     this.spawnCommand('dotnet', ['restore']);
     process.chdir('../');

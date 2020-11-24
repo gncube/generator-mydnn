@@ -2,6 +2,7 @@
 using DotNetNuke.Framework.JavaScriptLibraries;
 using DotNetNuke.Web.Mvc.Framework.ActionFilters;
 using DotNetNuke.Web.Mvc.Framework.Controllers;
+using DotNetNuke.Instrumentation;
 using System;
 using System.Web.Mvc;
 using <%= fullNamespace %>.Components;
@@ -13,6 +14,13 @@ namespace <%= fullNamespace %>.Controllers
     [DnnHandleError]
     public class <%= extensionName %>Controller : DnnController
     {
+
+        private ILog _log;
+
+        protected ILog Log
+        {
+            get { return _log ?? (_log = LoggerSource.Instance.GetLogger(this.GetType())); }
+        }
 
         public ActionResult Delete(int itemId)
         {
@@ -35,28 +43,41 @@ namespace <%= fullNamespace %>.Controllers
         [DotNetNuke.Web.Mvc.Framework.ActionFilters.ValidateAntiForgeryToken]
         public ActionResult Edit(<%= extensionName %>Info item)
         {
-            if (item.<%= extensionName %>Id == -1)
+            if (ModelState.IsValid)
             {
-                item.CreatedByUserId = User.UserID;
-                item.CreatedOnDate = DateTime.UtcNow;
-                item.LastUpdatedByUserId = User.UserID;
-                item.LastUpdatedOnDate = DateTime.UtcNow;
+              try
+              {
+                if (item.<%= extensionName %>Id == -1)
+                {
+                  item.CreatedByUserId = User.UserID;
+                  item.CreatedOnDate = DateTime.UtcNow;
+                  item.LastUpdatedByUserId = User.UserID;
+                  item.LastUpdatedOnDate = DateTime.UtcNow;
 
-                <%= extensionName %>InfoRepository.Instance.CreateItem(item);
+                  <%= extensionName %>InfoRepository.Instance.CreateItem(item);
+                }
+                else
+                {
+                  var existingItem = <%= extensionName %>InfoRepository.Instance.GetItem(item.<%= extensionName %>Id, item.ModuleId);
+                  existingItem.LastUpdatedByUserId = User.UserID;
+                  existingItem.LastUpdatedOnDate = DateTime.UtcNow;
+                  existingItem.Title = item.Title;
+                  existingItem.Description = item.Description;
+
+                  <%= extensionName %>InfoRepository.Instance.UpdateItem(existingItem);
+                }
+              }
+              catch (Exception ex)
+              {
+
+                Log.ErrorFormat("An error occurred in saving the <%= extensionName %>. Exception: {0}", ex);
+              }
+
+              return RedirectToDefaultRoute();
             }
-            else
-            {
-                var existingItem = <%= extensionName %>InfoRepository.Instance.GetItem(item.<%= extensionName %>Id, item.ModuleId);
-                existingItem.LastUpdatedByUserId = User.UserID;
-                existingItem.LastUpdatedOnDate = DateTime.UtcNow;
-                existingItem.Title = item.Title;
-                existingItem.Description = item.Description;
 
-                <%= extensionName %>InfoRepository.Instance.UpdateItem(existingItem);
-            }
-
-            return RedirectToDefaultRoute();
-        }
+            return View(item);
+          }
 
         [ModuleAction(ControlKey = "Edit", TitleKey = "AddItem")]
         public ActionResult Index()

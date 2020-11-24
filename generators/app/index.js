@@ -66,11 +66,12 @@ module.exports = class extends Generator {
         message: 'What type of project would you like to scaffold?',
         choices: [
           solutionChoice,
-          { name: 'Module: Webforms', value: 'webforms' },
+          { name: 'Module: SPA G', value: 'spa-g' },
           { name: 'Module: MVC', value: 'mvc' },
           { name: 'Module: MVC+SPA', value: 'mvc-spa' },
-          /*{ name: 'Module: MVC, .NET Core', value: 'mvc-core' },*/
-          { name: 'Module: SPA', value: 'spa-cli' },
+          { name: 'Module: MVC, .NET Core', value: 'mvc-core' },
+          { name: 'Module: MVC+SPA+AngularJS', value: 'mvc-spa-angularjs' },
+          { name: 'Module: SPA', value: 'spa' },
           { name: 'Persona Bar', value: 'personabar' },
           { name: 'Skin Object', value: 'skinobject' },
           { name: 'Library', value: 'library' },
