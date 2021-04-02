@@ -214,10 +214,12 @@ $RECYCLE.BIN/
 
 # DNN website
 #[Ww]ebsite/
+[Ww]ebsite/connections.config
 
 # DNN Lucene.net index files
 [Ww]ebsite/[Aa]pp_[Dd]ata/[Ss]earch/
 [Ww]ebsite/[Aa]pp_Data/[Cc]lientDependency/
+[Ww]ebsite/[Aa]pp_Data/[Ee]xtensionPackages
 
 # DNN Logs
 [Ww]ebsite/[Pp]ortals/_default/[Ll]ogs/
